@@ -1,79 +1,86 @@
-# VirtualGamePad Server
+# خادم يد التحكم الافتراضية (VirtualGamePad PC)
 
-[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/kitswas/VirtualGamePad-PC/total)](https://github.com/kitswas/VirtualGamePad-PC/releases/latest)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kitswas_VirtualGamePad-PC&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kitswas_VirtualGamePad-PC)
+[![GitHub Downloads](https://img.shields.io/github/downloads/kitswas/VirtualGamePad-PC/total)](https://github.com/kitswas/VirtualGamePad-PC/releases/latest)
 
 > [!IMPORTANT]
 >
-> - For installation, usage, troubleshooting, and FAQs, visit the [main project website](https://kitswas.github.io/VirtualGamePad/).
-> - This README/website is focused on technical documentation for the server.
+> - للتنزيل والاستخدام والأسئلة الشائعة، زر [الموقع الرئيسي للمشروع](https://kitswas.github.io/VirtualGamePad/).
+> - هذا الملف مخصص للتوثيق التقني للخادم.
 
-## History of the server's development
+## الشكر والفضل
 
-1. The server was originally written in C++.
-2. Then I rewrote it in Rust with [windows-rs](https://github.com/microsoft/windows-rs) for Rust's memory safety and the newer Gamepad injection Windows support.
-3. [Windows.UI.Input.Preview.Injection](https://learn.microsoft.com/en-us/uwp/api/windows.ui.input.preview.injection?view=winrt-22621), as the name says, is in preview and is [buggy](https://github.com/microsoft/microsoft-ui-xaml/issues/8639). _(Read unusable)_  
-I, unfortunately, didn't know the source of the problems and decided to rewrite the app according to the Microsoft recommended way for Windows Apps (C# with WinUI 3 and the Windows App SDK).  
-This is also when I figured that a GUI is worth the effort.
-4. Finally, due to the aforementioned reasons, this was created in C++ with the Win32 API and Qt6 for the UI.
-5. Experimental gamepad executor for Windows using `Windows.UI.Input.Preview.Injection` was added.
-6. Linux support was introduced due to user requests.
+هذا المشروع مبني على مشروع **[VirtualGamePad-PC](https://github.com/kitswas/VirtualGamePad-PC)**
+للمطور **kitswas** — بروتوكول الاتصال (Colfer)، وفكرة التطبيق، والتعيينات
+الافتراضية كلها من عمله الأصلي. هذه النسخة إعادة كتابة بلغة Flutter/Dart
+لمنصة لينكس، وهي — مثل الأصل — مرخّصة تحت
+**[GPL-3.0](LICENCE.TXT)**. جميع الحقوق الأصلية محفوظة لأصحابها.
 
-## How it works
+## تاريخ تطوير الخادم
 
-> [!NOTE]  
-> **Design choice:** [Colfer](https://github.com/pascaldekloe/colfer) over Protocol Buffers.  
-> Reason: [Performance](https://github.com/pascaldekloe/colfer/wiki/Benchmark) and simplicity.
+1. بدأ الخادم مكتوبًا بلغة C++.
+2. ثم أُعيدت كتابته بلغة Rust ثم C# (WinUI 3).
+3. ثم بلغة C++ مع Qt6، وأُضيف دعم لينكس.
+4. **ثم أُعيدت كتابته بلغة Flutter (Dart) للينكس**: نافذة واحدة تدير كل
+   الهواتف المتصلة، والحقن عبر `uinput`/`libevdev` باستخدام Dart FFI.
 
-1. Client-Server Communication:  
-   The mobile client (Android app) connects to the server over TCP. Communication uses a [custom binary protocol](https://github.com/kitswas/VGP_Data_Exchange) for efficient, structured data exchange.
+## كيف يعمل
 
-2. Input Parsing and Execution:  
-   The server receives gamepad state from the client. These are parsed and mapped to system-level input events via an Executor.
+> [!NOTE]
+> **اختيار التصميم:** [Colfer](https://github.com/pascaldekloe/colfer) بدل Protocol Buffers،
+> للسرعة والبساطة.
 
-   There are two Executors which you can choose from:
-   - Keyboard/Mouse Executor: Maps gamepad buttons/axes to keyboard keys and mouse movements/clicks via user-defined keymap profiles. Use this for games without native gamepad support.
-   - Gamepad Executor: Simulates a virtual gamepad device. You can run multiple instances of the server to create multiple virtual gamepads for local multiplayer.
+1. **الاتصال**: يتصل تطبيق الهاتف بالخادم عبر TCP باستخدام
+   [البروتوكول الثنائي المخصص](https://github.com/kitswas/VGP_Data_Exchange)
+   (حزم `GamepadReading` بترميز Colfer)، ويفك ترميزها ملف `lib/protocol.dart`.
 
-   The Executor uses platform APIs:
-   - Windows: Uses [SendInput()](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput) for keyboard/mouse, and WinRT APIs for gamepad simulation.
-   - Linux: Uses [`uinput`/`libevdev`](https://www.kernel.org/doc/html/v6.0/input/uinput.html) for input injection.
+2. **التنفيذ**: كل هاتف يحصل على جلسة `DeviceSession`
+   (`lib/device_server.dart`) بسوكت ومخزن ومُنفِّذ خاص به. تُحوَّل الحزم إلى
+   أحداث إدخال على مستوى النظام عبر مُنفِّذين (`lib/executors.dart`):
+   - **يد تحكم افتراضية**: جهاز افتراضي لكل هاتف (`Virtual Gamepad PC`،
+     `Virtual Gamepad PC 2`، …) بمعرّفات متوافقة مع يد Xbox 360 — للألعاب
+     التي تدعم يد التحكم وللعب الجماعي المحلي.
+   - **محاكاة لوحة المفاتيح والفأرة**: بالأزرار والاتجاهات حسب التعيين
+     الافتراضي (نفس تعيينات التطبيق الأصلي) — للألعاب بدون دعم يد التحكم.
+     (محرر التعيينات المخصصة لم يُنقل بعد.)
 
-3. Keymap Profiles:  
-   Users can define custom keymap profiles for different games or applications. Profiles are managed via the GUI and stored locally.
+   الحقن يتم عبر [`uinput`/`libevdev`](https://www.kernel.org/doc/html/v6.0/input/uinput.html)
+   باستخدام Dart FFI (`lib/linux_input.dart`). _لا حاجة لأي تعريفات خارجية._
 
-4. System-Level Input Injection:  
-   The server synthesizes input events at the OS level, allowing control of any application. _No external drivers are needed._
+3. **مدير بنافذة واحدة**: التطبيق (`lib/app.dart` و`lib/page_*.dart`) نافذة
+   أحادية اللون: حالة الخادم مع زر تشغيل/إيقاف، ولوحة توصيل الهواتف (قائمة
+   IP ورمز QR)، وقائمة الأجهزة المتصلة مع إحصاءات لكل جهاز وأزرار القطع —
+   **ويمكن إعادة تسمية كل جهاز** (يُحفظ الاسم حسب عنوان IP). الإعدادات
+   (طريقة الإدخال، المنفذ، سرعة المؤشر، **اللغة: العربية افتراضيًا وRTL
+   مع خيار الإنجليزية**) وحول التطبيق في نفس النافذة، والخادم يستمر
+   بالعمل تحتها.
 
-5. Security and Privacy:  
-   All communication is local (Wi-Fi/LAN). No ads, tracking, or telemetry. Source code is open for review.
+4. **الأمان والخصوصية**: كل الاتصالات محلية (Wi-Fi/LAN). لا إعلانات ولا
+   تتبع. الكود مفتوح للمراجعة.
 
-## Source Layout
+## بنية المصدر
 
-- src - Main source code (networking, simulation, UI, platform-specific code)
-- res - Resources (like icons and logos)
-- VGP_Data_Exchange - Communication protocol implementation
-- third-party-libs - External libraries (e.g., QR code generator)
-- docs - Doxygen documentation output
-- cmake - CMake modules for platform setup
+- lib - مصدر Dart (البروتوكول، حقن FFI، الخادم، الإعدادات، الواجهة)
+- linux - مشغّل Flutter للينكس
+- test - اختبارات وحدة وتكامل (Colfer، خادم loopback، أجهزة uinput حقيقية)
+- assets - الشعار
+- packaging - ملف `.desktop` للينكس
+- VGP_Data_Exchange - تعريف بروتوكول الاتصال (submodule للقراءة فقط)
+- third-party-libs - مكتبات خارجية (محفوظة كما هي)
 
-## Build Instructions
+## البناء
 
-See [the build document](Build.md) for detailed build instructions.
-
-### Generating Documentation
-
-This project uses [Doxygen](https://www.doxygen.nl/index.html) to generate documentation.  
-If Doxygen is available on your system,  
-You can generate the documentation by running the following command:
+انظر [ملف البناء](Build.md). باختصار:
 
 ```bash
-doxygen Doxyfile
+flutter pub get
+flutter analyze && flutter test
+flutter run -d linux
 ```
 
-This repository has automated workflow via Github Actions.  
-Documentation is auto-generated and deployed to Github Pages.
+## الرخصة
+
+GPL-3.0 — انظر [LICENCE.TXT](LICENCE.TXT).
 
 ---
 
-**For usage, downloads, and troubleshooting, visit the [main project website](https://kitswas.github.io/VirtualGamePad/).**
+**للاستخدام والتنزيلات وحل المشاكل، زر [الموقع الرئيسي](https://kitswas.github.io/VirtualGamePad/).**

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Virtual Gamepad PC
+Comment=Use phones as virtual gamepads for your PC
+Exec=/opt/virtual-gamepad-pc/virtual_gamepad_pc
+Icon=virtual-gamepad-pc
+Terminal=false
+Type=Application
+Categories=Utility;Game;
+StartupWMClass=virtual_gamepad_pc
