@@ -67,5 +67,5 @@ jobs:
         run: |
           TAG="${GITHUB_REF#refs/tags/}"
           ls -R artifacts
-          gh release upload "$TAG" artifacts/linux-packages/* artifacts/windows-bundle/* --clobber || \
+          gh release upload "$TAG" -R "${{ github.repository }}" artifacts/linux-packages/* artifacts/windows-bundle/* --clobber || \
             echo "Create the $TAG release first (notes), then re-run this job."
