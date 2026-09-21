@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:virtual_gamepad_pc/device_server.dart';
-import 'package:virtual_gamepad_pc/executors.dart';
-import 'package:virtual_gamepad_pc/protocol.dart';
-import 'package:virtual_gamepad_pc/settings.dart';
+import 'package:minassat_al_mutahakkamat/device_server.dart';
+import 'package:minassat_al_mutahakkamat/executors.dart';
+import 'package:minassat_al_mutahakkamat/protocol.dart';
+import 'package:minassat_al_mutahakkamat/settings.dart';
 
 class CountingExecutor implements Executor {
   final Executor inner;
@@ -35,8 +35,7 @@ void main() {
         required deviceName,
         required mouseSensitivity,
       }) {
-        counter =
-            CountingExecutor(GamepadExecutor('VGP Stream Test'));
+        counter = CountingExecutor(GamepadExecutor('VGP Stream Test'));
         return counter!;
       },
     );

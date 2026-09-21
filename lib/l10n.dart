@@ -42,8 +42,7 @@ abstract class Strings {
   String detailWaiting(String name, String address, int port);
   String detailStats(
       String name, String address, int port, int requests, double intervalMs);
-  String detailLimited(
-      String name, String address, int port, String reason);
+  String detailLimited(String name, String address, int port, String reason);
   String get platformUnsupported;
   String get disconnectSelected;
   String get disconnectAll;
@@ -87,8 +86,7 @@ class ArabicStrings implements Strings {
   @override
   String get navAbout => 'حول التطبيق';
   @override
-  String devicesTitle(int count) =>
-      count == 0 ? 'الأجهزة' : 'الأجهزة ($count)';
+  String devicesTitle(int count) => count == 0 ? 'الأجهزة' : 'الأجهزة ($count)';
   @override
   String get preferencesTitle => 'الإعدادات';
   @override
@@ -112,16 +110,15 @@ class ArabicStrings implements Strings {
   @override
   String get stopServer => 'إيقاف الخادم';
   @override
-  String serverRunningSnack(int count) =>
-      'الخادم يعمل — ${_count(count)}';
+  String serverRunningSnack(int count) => 'الخادم يعمل — ${_count(count)}';
   @override
   String get serverStoppedSnack => 'الخادم متوقف';
   @override
-  String get singleWindowHint =>
-      'مدير بنافذة واحدة — صِل أي عدد من الهواتف';
+  String get singleWindowHint => 'مدير بنافذة واحدة — صِل أي عدد من الهواتف';
   @override
   String get introSecond =>
-      'كل هاتف يحصل على يد تحكم افتراضية خاصة به (Virtual Gamepad PC وVirtual Gamepad PC 2 وهكذا).';  @override
+      'كل هاتف يحصل على يد تحكم افتراضية خاصة به (Minassat Gamepad وMinassat Gamepad 2 وهكذا).';
+  @override
   String startFailed(String error) => 'تعذّر التشغيل: $error';
 
   @override
@@ -147,8 +144,7 @@ class ArabicStrings implements Strings {
   @override
   String get statusLimited => 'محدود';
   @override
-  String get noDevices =>
-      'لا توجد أجهزة متصلة. شغّل الخادم وامسح الرمز.';
+  String get noDevices => 'لا توجد أجهزة متصلة. شغّل الخادم وامسح الرمز.';
   @override
   String get selectDeviceHint => 'اختر جهازًا متصلًا لعرض تفاصيله.';
   @override
@@ -159,8 +155,7 @@ class ArabicStrings implements Strings {
           double intervalMs) =>
       'الجهاز: $name\n\nالعنوان: $address : $port\n\nالطلبات المعالجة: $requests\n\nمتوسط الفاصل بين الطلبات: ${intervalMs.toStringAsFixed(2)} مللي ثانية';
   @override
-  String detailLimited(
-          String name, String address, int port, String reason) =>
+  String detailLimited(String name, String address, int port, String reason) =>
       'الجهاز: $name\n\nالعنوان: $address : $port\n\nالحالة: متصل لكن بدون جهاز افتراضي — $reason';
   @override
   String get platformUnsupported =>
@@ -207,19 +202,16 @@ class ArabicStrings implements Strings {
   @override
   String get language => 'اللغة';
   @override
-  String get portRangeError =>
-      'يجب أن يكون المنفذ 0 (تلقائي) أو بين 1 و65535.';
+  String get portRangeError => 'يجب أن يكون المنفذ 0 (تلقائي) أو بين 1 و65535.';
   @override
-  String get portChangedRestart =>
-      'تم تغيير المنفذ — تتم إعادة تشغيل الخادم…';
+  String get portChangedRestart => 'تم تغيير المنفذ — تتم إعادة تشغيل الخادم…';
 
   @override
-  String get aboutHeading => 'خادم يد التحكم الافتراضية';
+  String get aboutHeading => 'منصة المتحكمات';
   @override
   String versionLabel(String version) => 'الإصدار: $version';
   @override
-  String get aboutBody =>
-      'جزء من مشروع يد التحكم الافتراضية\n'
+  String get aboutBody => 'جزء من مشروع يد التحكم الافتراضية\n'
       '(https://kitswas.github.io/VirtualGamePad).\n\n'
       'الكود المصدري: https://github.com/kitswas/VirtualGamePad-PC\n\n'
       'البروتوكول: حزم GamepadReading بترميز Colfer الثنائي عبر TCP. '
@@ -237,8 +229,7 @@ class EnglishStrings implements Strings {
   @override
   String get navAbout => 'About';
   @override
-  String devicesTitle(int count) =>
-      count == 0 ? 'Devices' : 'Devices ($count)';
+  String devicesTitle(int count) => count == 0 ? 'Devices' : 'Devices ($count)';
   @override
   String get preferencesTitle => 'Preferences';
   @override
@@ -263,7 +254,7 @@ class EnglishStrings implements Strings {
       'Single-window manager — connect any number of phones';
   @override
   String get introSecond =>
-      'Each phone gets its own virtual gamepad device (Virtual Gamepad PC, Virtual Gamepad PC 2, …).';
+      'Each phone gets its own virtual gamepad device (Minassat Gamepad, Minassat Gamepad 2, …).';
   @override
   String startFailed(String error) => 'Could not start: $error';
 
@@ -303,8 +294,7 @@ class EnglishStrings implements Strings {
           double intervalMs) =>
       'Device: $name\n\nAddress: $address : $port\n\nRequests handled: $requests\n\nAverage request interval: ${intervalMs.toStringAsFixed(2)} ms';
   @override
-  String detailLimited(
-          String name, String address, int port, String reason) =>
+  String detailLimited(String name, String address, int port, String reason) =>
       'Device: $name\n\nAddress: $address : $port\n\nStatus: connected, but no virtual device — $reason';
   @override
   String get platformUnsupported =>
@@ -353,16 +343,14 @@ class EnglishStrings implements Strings {
   @override
   String get portRangeError => 'Port must be 0 (auto) or 1–65535.';
   @override
-  String get portChangedRestart =>
-      'Port changed — restarting server…';
+  String get portChangedRestart => 'Port changed — restarting server…';
 
   @override
-  String get aboutHeading => 'Virtual Gamepad PC Server';
+  String get aboutHeading => 'Minassat Al-Mutahakkamat';
   @override
   String versionLabel(String version) => 'Version: $version';
   @override
-  String get aboutBody =>
-      'Part of the Virtual Gamepad project\n'
+  String get aboutBody => 'Part of the Virtual Gamepad project\n'
       '(https://kitswas.github.io/VirtualGamePad).\n\n'
       'Source code: https://github.com/kitswas/VirtualGamePad-PC\n\n'
       'Protocol: Colfer-binary GamepadReading packets over TCP. '

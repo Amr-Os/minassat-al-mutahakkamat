@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:virtual_gamepad_pc/device_server.dart';
-import 'package:virtual_gamepad_pc/executors.dart';
-import 'package:virtual_gamepad_pc/l10n.dart';
-import 'package:virtual_gamepad_pc/settings.dart';
+import 'package:minassat_al_mutahakkamat/device_server.dart';
+import 'package:minassat_al_mutahakkamat/executors.dart';
+import 'package:minassat_al_mutahakkamat/l10n.dart';
+import 'package:minassat_al_mutahakkamat/settings.dart';
 
 Executor _nullFactory({
   required ExecutorType type,
@@ -27,8 +27,7 @@ void main() {
     });
 
     test('settings persist language and device names', () async {
-      final dir =
-          await Directory.systemTemp.createTemp('vgp_settings_test');
+      final dir = await Directory.systemTemp.createTemp('vgp_settings_test');
       AppSettings.testDir = dir.path;
       try {
         final s = AppSettings(
@@ -53,8 +52,8 @@ void main() {
   group('device naming', () {
     test('rename sticks and reapplies by IP', () async {
       final settings = AppSettings(port: 0);
-      final server = DeviceServer(
-          settings: settings, executorFactory: _nullFactory);
+      final server =
+          DeviceServer(settings: settings, executorFactory: _nullFactory);
       await server.start();
       final s = await Socket.connect('127.0.0.1', server.actualPort);
       await Future<void>.delayed(const Duration(milliseconds: 200));
@@ -69,8 +68,7 @@ void main() {
 
       server.rename(session, null);
       expect(session.customName, isNull);
-      expect(settings.deviceNames.containsKey(session.peerAddress),
-          isFalse);
+      expect(settings.deviceNames.containsKey(session.peerAddress), isFalse);
 
       s.destroy();
       await server.stop();

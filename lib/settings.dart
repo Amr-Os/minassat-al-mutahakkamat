@@ -1,5 +1,5 @@
 // App settings persisted as JSON in the platform config dir
-// (~/.config/virtual_gamepad_pc/settings.json on Linux).
+// (~/.config/minassat-al-mutahakkamat/settings.json on Linux).
 
 import 'dart:convert';
 import 'dart:io';
@@ -27,7 +27,7 @@ class AppSettings {
   static String get _dir {
     if (_testDir != null) return _testDir!;
     final home = Platform.environment['HOME'] ?? '.';
-    return '$home/.config/virtual_gamepad_pc';
+    return '$home/.config/minassat-al-mutahakkamat';
   }
 
   /// Test-only override for the config directory.
@@ -40,8 +40,7 @@ class AppSettings {
     try {
       final file = File(filePath);
       if (!file.existsSync()) return AppSettings();
-      final json =
-          jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
+      final json = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
       final names = <String, String>{};
       final rawNames = json['deviceNames'];
       if (rawNames is Map) {
@@ -71,9 +70,8 @@ class AppSettings {
     Directory(_dir).createSync(recursive: true);
     File(filePath).writeAsStringSync(jsonEncode({
       'port': port,
-      'executor': executor == ExecutorType.keyboardMouse
-          ? 'keyboardMouse'
-          : 'gamepad',
+      'executor':
+          executor == ExecutorType.keyboardMouse ? 'keyboardMouse' : 'gamepad',
       'mouseSensitivity': mouseSensitivity,
       'language': language == AppLanguage.english ? 'en' : 'ar',
       'deviceNames': deviceNames,

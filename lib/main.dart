@@ -37,7 +37,7 @@ class VirtualGamepadApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Virtual Gamepad',
+      title: 'منصة المتحكمات',
       debugShowCheckedModeBanner: false,
       theme: monoTheme(),
       home: ManagerShell(server: server, language: language),

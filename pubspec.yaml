@@ -1,5 +1,5 @@
-name: virtual_gamepad_pc
-description: Use mobile devices as virtual gamepads for your PC (desktop app, Linux supported first).
+name: minassat_al_mutahakkamat
+description: حوّل هاتفك إلى متحكم للحاسوب (تطبيق مكتبي، لينكس أولًا).
 publish_to: none
 version: 0.5.0
 

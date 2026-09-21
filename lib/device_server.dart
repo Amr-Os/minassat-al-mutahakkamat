@@ -95,8 +95,9 @@ class DeviceSession extends ChangeNotifier {
   }
 
   bool get isLimited => executor is _LimitedExecutor;
-  String? get limitReason =>
-      executor is _LimitedExecutor ? (executor as _LimitedExecutor).reason : null;
+  String? get limitReason => executor is _LimitedExecutor
+      ? (executor as _LimitedExecutor).reason
+      : null;
   bool get isPlatformUnsupported =>
       executor is _LimitedExecutor &&
       (executor as _LimitedExecutor).isPlatformUnsupported;
@@ -128,8 +129,7 @@ class DeviceSession extends ChangeNotifier {
       }
       requestCount++;
       if (_lastRequest != null) {
-        final elapsed =
-            now.difference(_lastRequest!).inMicroseconds / 1000.0;
+        final elapsed = now.difference(_lastRequest!).inMicroseconds / 1000.0;
         averageIntervalMs += (elapsed - averageIntervalMs) / requestCount;
       }
       _lastRequest = now;
@@ -170,8 +170,7 @@ class DeviceServer extends ChangeNotifier {
     if (isRunning) return;
     lastError = null;
     try {
-      _socket =
-          await ServerSocket.bind(InternetAddress.anyIPv4, settings.port);
+      _socket = await ServerSocket.bind(InternetAddress.anyIPv4, settings.port);
     } catch (e) {
       lastError = e.toString();
       notifyListeners();
@@ -201,7 +200,7 @@ class DeviceServer extends ChangeNotifier {
     // Low-latency gamepad traffic.
     socket.setOption(SocketOption.tcpNoDelay, true);
     final index = _deviceCounter++;
-    final baseName = 'Virtual Gamepad PC';
+    final baseName = 'Minassat Gamepad';
     final deviceName = index <= 1 ? baseName : '$baseName $index';
     String peerIp = '';
     try {
@@ -211,8 +210,7 @@ class DeviceServer extends ChangeNotifier {
       socket: socket,
       index: index,
       deviceName: deviceName,
-      customName:
-          peerIp.isNotEmpty ? settings.deviceNames[peerIp] : null,
+      customName: peerIp.isNotEmpty ? settings.deviceNames[peerIp] : null,
       executor: executorFactory(
         type: settings.executor,
         deviceName: deviceName,

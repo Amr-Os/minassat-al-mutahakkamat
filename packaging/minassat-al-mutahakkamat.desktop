@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=منصة المتحكمات
+Comment=حوّل هاتفك إلى متحكم للحاسوب
+Exec=/opt/minassat-al-mutahakkamat/minassat-al-mutahakkamat
+Icon=minassat-al-mutahakkamat
+Terminal=false
+Type=Application
+Categories=Utility;Game;
+StartupWMClass=minassat-al-mutahakkamat

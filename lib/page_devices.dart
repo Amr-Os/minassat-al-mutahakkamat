@@ -15,8 +15,7 @@ import 'widgets.dart';
 class DevicesPage extends StatefulWidget {
   final DeviceServer server;
   final ValueNotifier<AppLanguage> language;
-  const DevicesPage(
-      {super.key, required this.server, required this.language});
+  const DevicesPage({super.key, required this.server, required this.language});
 
   @override
   State<DevicesPage> createState() => _DevicesPageState();
@@ -34,8 +33,7 @@ class _DevicesPageState extends State<DevicesPage> {
   String get _prefix =>
       widget.language.value == AppLanguage.arabic ? 'جهاز' : 'Device';
 
-  String _name(DeviceSession session) =>
-      session.displayName(_prefix);
+  String _name(DeviceSession session) => session.displayName(_prefix);
 
   @override
   void initState() {
@@ -109,8 +107,7 @@ class _DevicesPageState extends State<DevicesPage> {
           Expanded(
             child: Text(
               running
-                  ? s.runningStatus(
-                      server.actualPort, server.sessions.length)
+                  ? s.runningStatus(server.actualPort, server.sessions.length)
                   : s.stoppedStatus(server.sessions.length),
               style: const TextStyle(
                   color: Color(0xFFFAFAFA), fontWeight: FontWeight.w700),
@@ -125,8 +122,7 @@ class _DevicesPageState extends State<DevicesPage> {
                 await server.start();
                 if (server.lastError != null && mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content:
-                          Text(s.startFailed(server.lastError!))));
+                      content: Text(s.startFailed(server.lastError!))));
                 }
               }
             },
@@ -160,8 +156,7 @@ class _DevicesPageState extends State<DevicesPage> {
                       ? Padding(
                           padding: const EdgeInsets.all(12),
                           child: Text(s.noAddresses,
-                              style:
-                                  const TextStyle(color: Mono.muted)),
+                              style: const TextStyle(color: Mono.muted)),
                         )
                       : Column(
                           children: [
@@ -179,8 +174,7 @@ class _DevicesPageState extends State<DevicesPage> {
                                 selectedTileColor: Mono.pressed,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(6)),
-                                onTap: () =>
-                                    setState(() => _selectedIp = i),
+                                onTap: () => setState(() => _selectedIp = i),
                               ),
                           ],
                         ),
@@ -222,8 +216,7 @@ class _DevicesPageState extends State<DevicesPage> {
   }
 
   Future<void> _renameDialog(DeviceSession session) async {
-    final controller =
-        TextEditingController(text: session.customName ?? '');
+    final controller = TextEditingController(text: session.customName ?? '');
     final result = await showDialog<String?>(
       context: context,
       builder: (context) => AlertDialog(
@@ -231,8 +224,7 @@ class _DevicesPageState extends State<DevicesPage> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: const BorderSide(color: Mono.border)),
-        title: Text(s.renameTitle,
-            style: const TextStyle(color: Colors.white)),
+        title: Text(s.renameTitle, style: const TextStyle(color: Colors.white)),
         content: TextField(
           controller: controller,
           autofocus: true,
@@ -252,19 +244,15 @@ class _DevicesPageState extends State<DevicesPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(null),
-            child: Text(s.cancel,
-                style: const TextStyle(color: Mono.muted)),
+            child: Text(s.cancel, style: const TextStyle(color: Mono.muted)),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(''),
-            child: Text(s.clear,
-                style: const TextStyle(color: Mono.muted)),
+            child: Text(s.clear, style: const TextStyle(color: Mono.muted)),
           ),
           TextButton(
-            onPressed: () =>
-                Navigator.of(context).pop(controller.text),
-            child: Text(s.save,
-                style: const TextStyle(color: Colors.white)),
+            onPressed: () => Navigator.of(context).pop(controller.text),
+            child: Text(s.save, style: const TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -344,16 +332,14 @@ class _DevicesPageState extends State<DevicesPage> {
                               child: Text(
                                   '${sessions[i].peerAddress} : ${sessions[i].peerPort}',
                                   style: const TextStyle(
-                                      color: Color(0xFFEDEDED),
-                                      fontSize: 12))),
+                                      color: Color(0xFFEDEDED), fontSize: 12))),
                           Expanded(
                               child: Text(
                                   sessions[i].isLimited
                                       ? s.statusLimited
                                       : s.statusConnected,
                                   style: const TextStyle(
-                                      color: Color(0xFFEDEDED),
-                                      fontSize: 12))),
+                                      color: Color(0xFFEDEDED), fontSize: 12))),
                         ],
                       ),
                     ),
@@ -374,8 +360,8 @@ class _DevicesPageState extends State<DevicesPage> {
                             ? s.platformUnsupported
                             : (selected.limitReason ?? ''))
                     : selected.requestCount == 0
-                        ? s.detailWaiting(_name(selected),
-                            selected.peerAddress, selected.peerPort)
+                        ? s.detailWaiting(_name(selected), selected.peerAddress,
+                            selected.peerPort)
                         : s.detailStats(
                             _name(selected),
                             selected.peerAddress,
@@ -391,21 +377,18 @@ class _DevicesPageState extends State<DevicesPage> {
             children: [
               GhostButton(
                 label: s.disconnectSelected,
-                onPressed: selected == null
-                    ? null
-                    : () => server.disconnect(selected),
+                onPressed:
+                    selected == null ? null : () => server.disconnect(selected),
               ),
               GhostButton(
                 label: s.disconnectAll,
-                onPressed: sessions.isEmpty
-                    ? null
-                    : () => server.disconnectAll(),
+                onPressed:
+                    sessions.isEmpty ? null : () => server.disconnectAll(),
               ),
               GhostButton(
                 label: s.rename,
-                onPressed: selected == null
-                    ? null
-                    : () => _renameDialog(selected),
+                onPressed:
+                    selected == null ? null : () => _renameDialog(selected),
               ),
             ],
           ),

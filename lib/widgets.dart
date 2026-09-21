@@ -49,8 +49,7 @@ class PrimaryButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
       ),
       onPressed: onPressed,
-      child: Text(label,
-          style: const TextStyle(fontWeight: FontWeight.w700)),
+      child: Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
     );
   }
 }

@@ -1,11 +1,3 @@
-[submodule "doxygen-awesome-css"]
-	path = doxygen-awesome-css
-	url = https://github.com/jothepro/doxygen-awesome-css.git
-	branch = tags/v2.4.2
-[submodule "QR-Code-generator"]
-	path = third-party-libs/QR-Code-generator
-	url = https://github.com/nayuki/QR-Code-generator.git
-	branch = tags/v1.8.0
 [submodule "VGP_Data_Exchange"]
 	path = VGP_Data_Exchange
 	url = https://github.com/kitswas/VGP_Data_Exchange.git

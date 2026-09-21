@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:virtual_gamepad_pc/protocol.dart';
+import 'package:minassat_al_mutahakkamat/protocol.dart';
 
 void main() {
   group('colfer gamepad_reading', () {
@@ -56,8 +56,8 @@ void main() {
     });
 
     test('truncated input is incomplete', () {
-      expect(decodeGamepadReading(Uint8List(0)).failure,
-          DecodeFailure.incomplete);
+      expect(
+          decodeGamepadReading(Uint8List(0)).failure, DecodeFailure.incomplete);
       final bytes = encodeGamepadReading(
           const GamepadReading(buttonsDown: 4, leftX: 0.5));
       for (var i = 0; i < bytes.length - 1; i++) {

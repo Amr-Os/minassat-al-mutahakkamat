@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'device_server.dart';
 import 'l10n.dart';
 import 'page_about.dart';
-import 'page_devices.dart';import 'page_prefs.dart';
+import 'page_devices.dart';
+import 'page_prefs.dart';
 import 'theme.dart';
 
 class ManagerShell extends StatefulWidget {
   final DeviceServer server;
   final ValueNotifier<AppLanguage> language;
-  const ManagerShell(
-      {super.key, required this.server, required this.language});
+  const ManagerShell({super.key, required this.server, required this.language});
 
   @override
   State<ManagerShell> createState() => _ManagerShellState();
@@ -30,8 +30,9 @@ class _ManagerShellState extends State<ManagerShell> {
         final lang = widget.language.value;
         final s = stringsFor(lang);
         return Directionality(
-          textDirection:
-              lang == AppLanguage.arabic ? TextDirection.rtl : TextDirection.ltr,
+          textDirection: lang == AppLanguage.arabic
+              ? TextDirection.rtl
+              : TextDirection.ltr,
           child: Scaffold(
             backgroundColor: Mono.bg,
             body: Row(
@@ -45,8 +46,7 @@ class _ManagerShellState extends State<ManagerShell> {
                       children: [
                         ListenableBuilder(
                           listenable: widget.server,
-                          builder: (context, _) => Text(
-                              _title(s),
+                          builder: (context, _) => Text(_title(s),
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
@@ -142,8 +142,7 @@ class _ManagerShellState extends State<ManagerShell> {
       decoration: BoxDecoration(
         color: active ? Mono.selectedBg : Colors.transparent,
         border: Border.all(
-            color:
-                active ? const Color(0xFF333333) : Colors.transparent),
+            color: active ? const Color(0xFF333333) : Colors.transparent),
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
@@ -151,11 +150,9 @@ class _ManagerShellState extends State<ManagerShell> {
         title: Text(label,
             style: TextStyle(
                 color: active ? Colors.white : const Color(0xFFC9C9C9),
-                fontWeight:
-                    active ? FontWeight.w600 : FontWeight.normal)),
+                fontWeight: active ? FontWeight.w600 : FontWeight.normal)),
         onTap: () => setState(() => _page = index),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }

@@ -93,16 +93,16 @@ class _PreferencesPageState extends State<PreferencesPage> {
                     title: Text(s.gamepadMode,
                         style: const TextStyle(color: Mono.text)),
                     subtitle: Text(s.gamepadModeSub,
-                        style: const TextStyle(
-                            color: Mono.muted, fontSize: 12)),
+                        style:
+                            const TextStyle(color: Mono.muted, fontSize: 12)),
                     value: ExecutorType.gamepad,
                   ),
                   RadioListTile<ExecutorType>(
                     title: Text(s.keyboardMode,
                         style: const TextStyle(color: Mono.text)),
                     subtitle: Text(s.keyboardModeSub,
-                        style: const TextStyle(
-                            color: Mono.muted, fontSize: 12)),
+                        style:
+                            const TextStyle(color: Mono.muted, fontSize: 12)),
                     value: ExecutorType.keyboardMouse,
                   ),
                 ],
@@ -123,17 +123,14 @@ class _PreferencesPageState extends State<PreferencesPage> {
                   child: TextField(
                     controller: _port,
                     keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       hintText: s.portAutoHint,
                       hintStyle: const TextStyle(color: Mono.faint),
                       filled: true,
                       fillColor: Mono.inputBg,
                       border: const OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(8)),
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: Mono.borderStrong),
                       ),
                     ),
@@ -178,15 +175,15 @@ class _PreferencesPageState extends State<PreferencesPage> {
                 children: [
                   Expanded(
                     child: RadioListTile<AppLanguage>(
-                      title: Text('العربية',
-                          style: TextStyle(color: Mono.text)),
+                      title:
+                          Text('العربية', style: TextStyle(color: Mono.text)),
                       value: AppLanguage.arabic,
                     ),
                   ),
                   Expanded(
                     child: RadioListTile<AppLanguage>(
-                      title: Text('English',
-                          style: TextStyle(color: Mono.text)),
+                      title:
+                          Text('English', style: TextStyle(color: Mono.text)),
                       value: AppLanguage.english,
                     ),
                   ),

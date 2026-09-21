@@ -1,4 +1,4 @@
-# Build Instructions (Flutter/Linux)
+# Build Instructions (Flutter) — منصة المتحكمات
 
 ## Prerequisites
 
@@ -50,20 +50,20 @@ flutter run -d linux
 
 # Release bundle for distribution
 flutter build linux
-# -> build/linux/x64/release/bundle/virtual_gamepad_pc
+# -> build/linux/x64/release/bundle/minassat-al-mutahakkamat
 ```
 
 ## Optional: launcher entry
 
 ```bash
 mkdir -p ~/.local/share/applications ~/.local/share/icons
-cp packaging/virtual-gamepad-pc.desktop ~/.local/share/applications/
-cp assets/logo.png ~/.local/share/icons/virtual-gamepad-pc.png
+cp packaging/minassat-al-mutahakkamat.desktop ~/.local/share/applications/
+cp assets/logo.png ~/.local/share/icons/minassat-al-mutahakkamat.png
 # Edit Exec= to the absolute bundle path first
 ```
 
 ## Settings
 
-Stored as JSON at `~/.config/virtual_gamepad_pc/settings.json`
+Stored as JSON at `~/.config/minassat-al-mutahakkamat/settings.json`
 (`port`, `executor`, `mouseSensitivity`). A changed port restarts the
 server automatically; a changed executor applies to newly connected phones.

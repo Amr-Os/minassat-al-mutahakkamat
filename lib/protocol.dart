@@ -157,9 +157,8 @@ DecodeResult decodeGamepadReading(Uint8List data, [int offset = 0]) {
     if (fail != null) return incomplete(fail);
     final v = readVarint();
     if (v == null) {
-      return incomplete(r.tooLarge
-          ? DecodeFailure.dataTooLarge
-          : DecodeFailure.incomplete);
+      return incomplete(
+          r.tooLarge ? DecodeFailure.dataTooLarge : DecodeFailure.incomplete);
     }
     buttonsUp = v;
     header = r.data[r.pos++];
@@ -176,9 +175,8 @@ DecodeResult decodeGamepadReading(Uint8List data, [int offset = 0]) {
     if (fail != null) return incomplete(fail);
     final v = readVarint();
     if (v == null) {
-      return incomplete(r.tooLarge
-          ? DecodeFailure.dataTooLarge
-          : DecodeFailure.incomplete);
+      return incomplete(
+          r.tooLarge ? DecodeFailure.dataTooLarge : DecodeFailure.incomplete);
     }
     buttonsDown = v;
     header = r.data[r.pos++];
@@ -258,8 +256,12 @@ Uint8List encodeGamepadReading(GamepadReading r) {
     out.add(index);
     final bd = ByteData(4)..setFloat32(0, value);
     final bits = bd.getUint32(0);
-    out.addAll(
-        [(bits >> 24) & 255, (bits >> 16) & 255, (bits >> 8) & 255, bits & 255]);
+    out.addAll([
+      (bits >> 24) & 255,
+      (bits >> 16) & 255,
+      (bits >> 8) & 255,
+      bits & 255
+    ]);
   }
 
   if (r.buttonsUp != 0) putVarint(0, r.buttonsUp);

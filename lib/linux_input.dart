@@ -28,39 +28,38 @@ class LinuxInput {
 
   static DynamicLibrary get evdev =>
       _evdev ??= DynamicLibrary.open('libevdev.so.2');
-  static DynamicLibrary get libc =>
-      _libc ??= DynamicLibrary.open('libc.so.6');
+  static DynamicLibrary get libc => _libc ??= DynamicLibrary.open('libc.so.6');
 
-  static final Pointer<Void> Function() newDevice = evdev
-      .lookupFunction<Pointer<Void> Function(), Pointer<Void> Function()>(
+  static final Pointer<Void> Function() newDevice =
+      evdev.lookupFunction<Pointer<Void> Function(), Pointer<Void> Function()>(
           'libevdev_new');
 
-  static final void Function(Pointer<Void>) freeDevice = evdev
-      .lookupFunction<Void Function(Pointer<Void>),
-          void Function(Pointer<Void>)>('libevdev_free');
+  static final void Function(Pointer<Void>) freeDevice = evdev.lookupFunction<
+      Void Function(Pointer<Void>),
+      void Function(Pointer<Void>)>('libevdev_free');
 
-  static final void Function(Pointer<Void>, Pointer<Utf8>) setName = evdev
-      .lookupFunction<Void Function(Pointer<Void>, Pointer<Utf8>),
+  static final void Function(Pointer<Void>, Pointer<Utf8>) setName =
+      evdev.lookupFunction<Void Function(Pointer<Void>, Pointer<Utf8>),
           void Function(Pointer<Void>, Pointer<Utf8>)>('libevdev_set_name');
 
-  static final void Function(Pointer<Void>, int) setIdBustype = evdev
-      .lookupFunction<Void Function(Pointer<Void>, Uint32),
+  static final void Function(Pointer<Void>, int) setIdBustype =
+      evdev.lookupFunction<Void Function(Pointer<Void>, Uint32),
           void Function(Pointer<Void>, int)>('libevdev_set_id_bustype');
 
-  static final void Function(Pointer<Void>, int) setIdVendor = evdev
-      .lookupFunction<Void Function(Pointer<Void>, Uint32),
+  static final void Function(Pointer<Void>, int) setIdVendor =
+      evdev.lookupFunction<Void Function(Pointer<Void>, Uint32),
           void Function(Pointer<Void>, int)>('libevdev_set_id_vendor');
 
-  static final void Function(Pointer<Void>, int) setIdProduct = evdev
-      .lookupFunction<Void Function(Pointer<Void>, Uint32),
+  static final void Function(Pointer<Void>, int) setIdProduct =
+      evdev.lookupFunction<Void Function(Pointer<Void>, Uint32),
           void Function(Pointer<Void>, int)>('libevdev_set_id_product');
 
-  static final void Function(Pointer<Void>, int) setIdVersion = evdev
-      .lookupFunction<Void Function(Pointer<Void>, Uint32),
+  static final void Function(Pointer<Void>, int) setIdVersion =
+      evdev.lookupFunction<Void Function(Pointer<Void>, Uint32),
           void Function(Pointer<Void>, int)>('libevdev_set_id_version');
 
-  static final int Function(Pointer<Void>, int) enableEventType = evdev
-      .lookupFunction<Int32 Function(Pointer<Void>, Uint32),
+  static final int Function(Pointer<Void>, int) enableEventType =
+      evdev.lookupFunction<Int32 Function(Pointer<Void>, Uint32),
           int Function(Pointer<Void>, int)>('libevdev_enable_event_type');
 
   static final int Function(Pointer<Void>, int, int, Pointer<Void>)
@@ -78,16 +77,16 @@ class LinuxInput {
   static final int Function(Pointer<Void>, int, int, int) uinputWrite =
       evdev.lookupFunction<
           Int32 Function(Pointer<Void>, Uint32, Uint32, Int32),
-          int Function(Pointer<Void>, int, int,
-              int)>('libevdev_uinput_write_event');
+          int Function(
+              Pointer<Void>, int, int, int)>('libevdev_uinput_write_event');
 
-  static final void Function(Pointer<Void>) uinputDestroy = evdev
-      .lookupFunction<Void Function(Pointer<Void>),
+  static final void Function(Pointer<Void>) uinputDestroy =
+      evdev.lookupFunction<Void Function(Pointer<Void>),
           void Function(Pointer<Void>)>('libevdev_uinput_destroy');
 
-  static final int Function(Pointer<Utf8>, int) open = libc
-      .lookupFunction<Int32 Function(Pointer<Utf8>, Int32),
-          int Function(Pointer<Utf8>, int)>('open');
+  static final int Function(Pointer<Utf8>, int) open = libc.lookupFunction<
+      Int32 Function(Pointer<Utf8>, Int32),
+      int Function(Pointer<Utf8>, int)>('open');
 
   static final int Function(int) close =
       libc.lookupFunction<Int32 Function(Int32), int Function(int)>('close');
@@ -156,8 +155,7 @@ class UinputDevice {
 
   /// Enables `type` (+ optional `code`) on the underlying device. Must be
   /// called from the `setup` callback of [UinputDevice.create].
-  static void enable(
-      Pointer<Void> dev, int type, int code, AbsSpec? absSpec) {
+  static void enable(Pointer<Void> dev, int type, int code, AbsSpec? absSpec) {
     var rc = LinuxInput.enableEventType(dev, type);
     if (rc != 0) throw StateError('enable_event_type($type) rc=$rc');
     Pointer<Void> data = nullptr;

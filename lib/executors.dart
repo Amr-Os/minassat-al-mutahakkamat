@@ -25,8 +25,7 @@ class NullExecutor implements Executor {
   void dispose() {}
 }
 
-int _clampAxis(double v, int max) =>
-    (v * max).round().clamp(-max - 1, max);
+int _clampAxis(double v, int max) => (v * max).round().clamp(-max - 1, max);
 
 /// Virtual gamepad device (Xbox 360 compatible IDs), one per phone.
 /// Axis polarity matches the previous Qt implementation.
@@ -240,13 +239,13 @@ class KeyboardMouseExecutor implements Executor {
   final int mouseSensitivity;
 
   KeyboardMouseExecutor({this.mouseSensitivity = 1000})
-      : _keyboard = UinputDevice.create('Virtual Gamepad Keyboard', (dev) {
+      : _keyboard = UinputDevice.create('Minassat Keyboard', (dev) {
           UinputDevice.enableType(dev, Ev.key);
           for (final code in DefaultKeymap.allKeyCodes) {
             UinputDevice.enable(dev, Ev.key, code, null);
           }
         }),
-        _mouse = UinputDevice.create('Virtual Gamepad Mouse', (dev) {
+        _mouse = UinputDevice.create('Minassat Mouse', (dev) {
           UinputDevice.enableType(dev, Ev.key);
           UinputDevice.enableType(dev, Ev.rel);
           for (final code in [Btn.left, Btn.right, Btn.middle]) {
