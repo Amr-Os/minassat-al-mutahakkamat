@@ -25,9 +25,10 @@ new platforms plug in cleanly.
 
 ```text
 Mobile Client (TCP) -> DeviceServer (dart:io) -> Colfer decoder
-  -> Executor (FFI uinput gamepad | keyboard+mouse) -> Linux kernel
+  -> Executor (Linux: FFI uinput gamepad | keyboard+mouse;
+               Windows: SendInput keyboard+mouse) -> OS
 ```
-(Windows/macOS executors plug in behind `Executor` later.)
+(Windows gamepad mode and macOS executors plug in behind `Executor` later.)
 
 - `lib/protocol.dart` - Colfer `GamepadReading` decoder/encoder
   (port of the generated C decoder semantics; the schema is inlined in

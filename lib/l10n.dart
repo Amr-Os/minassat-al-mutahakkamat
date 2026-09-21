@@ -152,7 +152,7 @@ class ArabicStrings implements Strings {
       'الجهاز: $name\n\nالعنوان: $address : $port\n\nالحالة: متصل لكن بدون جهاز افتراضي — $reason';
   @override
   String get platformUnsupported =>
-      'الحقن غير مدعوم على نظام التشغيل هذا بعد — لينكس فقط حاليًا';
+      'وضع الإدخال هذا غير مدعوم على نظام التشغيل هذا بعد';
   @override
   String get disconnectSelected => 'قطع المحدد';
   @override
@@ -284,7 +284,7 @@ class EnglishStrings implements Strings {
       'Device: $name\n\nAddress: $address : $port\n\nStatus: connected, but no virtual device — $reason';
   @override
   String get platformUnsupported =>
-      'Input injection is not supported on this desktop OS yet — Linux only for now';
+      'This input method is not supported on this desktop OS yet';
   @override
   String get disconnectSelected => 'Disconnect selected';
   @override

@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 import 'executors.dart';
+import 'executors_windows.dart';
 import 'protocol.dart';
 import 'settings.dart';
 
@@ -23,8 +24,20 @@ Executor defaultExecutorFactory({
   required String deviceName,
   required int mouseSensitivity,
 }) {
-  // Input injection is implemented for Linux so far; other desktops are
-  // planned. Phones stay connected (parsing/stats) with a clear reason.
+  // Input injection is implemented for Linux so far; Windows does
+  // keyboard/mouse via SendInput (gamepad mode stays limited there);
+  // other desktops are planned. Phones stay connected (parsing/stats)
+  // with a clear reason wherever injection is missing.
+  if (Platform.isWindows) {
+    if (type == ExecutorType.keyboardMouse) {
+      try {
+        return WindowsKeyboardMouseExecutor(mouseSensitivity: mouseSensitivity);
+      } catch (e) {
+        return _LimitedExecutor(e.toString());
+      }
+    }
+    return _LimitedExecutor('', isPlatformUnsupported: true);
+  }
   if (!Platform.isLinux) {
     return _LimitedExecutor('', isPlatformUnsupported: true);
   }

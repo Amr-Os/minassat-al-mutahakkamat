@@ -1,5 +1,9 @@
 # Build Instructions (Flutter) — منصة المتحكمات
 
+> Windows binaries are built on CI (`.github/workflows/build.yml`) — a
+> Windows build needs MSVC/Windows SDK. Push a `v*` tag, create the
+> release notes, and CI attaches both platforms' packages to the release.
+
 ## Prerequisites
 
 - [Flutter SDK 3.35+](https://docs.flutter.dev/get-started/install/linux)

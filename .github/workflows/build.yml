@@ -1,0 +1,71 @@
+# Builds Linux + Windows bundles. Windows binaries come from CI because
+# they need MSVC/Windows SDK, which a Linux machine does not have.
+#
+# Flow: push a tag like v0.6.0 -> both platforms build -> binaries land
+# as artifacts. Create the GitHub release first (notes), then re-run or
+# let the release job attach the files to it.
+
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Linux build deps
+        run: sudo apt-get update && sudo apt-get install -y cmake ninja-build libgtk-3-dev
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      - run: ./packaging/make-release.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-packages
+          path: dist/*
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      - run: flutter build windows --release
+      - name: Zip bundle
+        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath minassat-al-mutahakkamat-windows-x86_64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-bundle
+          path: minassat-al-mutahakkamat-windows-x86_64.zip
+
+  release:
+    needs: [linux, windows]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Attach binaries to the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          ls -R artifacts
+          gh release upload "$TAG" artifacts/linux-packages/* artifacts/windows-bundle/* --clobber || \
+            echo "Create the $TAG release first (notes), then re-run this job."

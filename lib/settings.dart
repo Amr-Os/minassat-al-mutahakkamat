@@ -26,6 +26,10 @@ class AppSettings {
 
   static String get _dir {
     if (_testDir != null) return _testDir!;
+    if (Platform.isWindows) {
+      final base = Platform.environment['APPDATA'] ?? '.';
+      return '$base/minassat-al-mutahakkamat';
+    }
     final home = Platform.environment['HOME'] ?? '.';
     return '$home/.config/minassat-al-mutahakkamat';
   }
