@@ -4,20 +4,30 @@
 هاتفك، والعب — ويمكن توصيل عدة هواتف في نفس الوقت، كل واحد يظهر كجهاز
 مستقل في نافذة واحدة.
 
-## التنزيل والتشغيل
+## التنزيل والتثبيت
 
-لا توجد حزم جاهزة بعد — ابنِ التطبيق من المصدر (دقيقتان):
+من صفحة [الإصدارات](https://github.com/Amr-Os/minassat-al-mutahakkamat/releases/latest)
+حمّل إحدى الحزمتين:
+
+**الأسهل (.deb لأوبونتو/دبيان):**
+
+```bash
+sudo dpkg -i minassat-al-mutahakkamat_0.5.0_amd64.deb
+sudo apt-get install -f   # لتكملة أي اعتماديات ناقصة
+```
+
+**أو الأرشيف (أي توزيعة):**
+
+```bash
+tar -xzf minassat-al-mutahakkamat-0.5.0-linux-x86_64.tar.gz
+cd minassat-al-mutahakkamat && ./minassat-al-mutahakkamat
+```
+
+**أو ابنِ من المصدر:**
 
 ```bash
 flutter pub get
 flutter run -d linux
-```
-
-ولنسخة جاهزة للتوزيع:
-
-```bash
-flutter build linux
-# build/linux/x64/release/bundle/minassat-al-mutahakkamat
 ```
 
 ### صلاحيات الإدخال (مرة واحدة)
