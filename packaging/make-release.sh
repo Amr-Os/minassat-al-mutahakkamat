@@ -40,5 +40,26 @@ EOF
 dpkg-deb --build "$DEB"
 rm -rf "dist/$APP" "$DEB"
 
+# --- AppImage: universal package for Arch, Fedora and other distros ---
+if [ ! -x packaging/.tools/appimagetool-root/AppRun ]; then
+  mkdir -p packaging/.tools
+  curl -sL -o packaging/.tools/appimagetool.AppImage \
+    "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
+  chmod +x packaging/.tools/appimagetool.AppImage
+  (cd packaging/.tools && ./appimagetool.AppImage --appimage-extract >/dev/null && \
+    rm -rf appimagetool-root && mv squashfs-root appimagetool-root)
+fi
+APPDIR="dist/AppDir"
+rm -rf "$APPDIR"
+mkdir -p "$APPDIR/minassat-al-mutahakkamat"
+cp -r build/linux/x64/release/bundle/* "$APPDIR/minassat-al-mutahakkamat/"
+ln -s "minassat-al-mutahakkamat/minassat-al-mutahakkamat" "$APPDIR/AppRun"
+sed 's|^Exec=.*|Exec=minassat-al-mutahakkamat|' \
+  "packaging/$APP.desktop" > "$APPDIR/$APP.desktop"
+cp assets/logo.png "$APPDIR/$APP.png"
+ARCH=x86_64 packaging/.tools/appimagetool-root/AppRun \
+  "$APPDIR" "dist/${APP}-${VERSION}-linux-x86_64.AppImage"
+rm -rf "$APPDIR"
+
 echo "Release artifacts:"
 ls -la dist/

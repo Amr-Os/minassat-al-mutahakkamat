@@ -39,6 +39,7 @@ lib/generated_plugin_registrant.dart
 
 # Release artifacts (published on GitHub releases, not in git)
 /dist/
+/packaging/.tools/
 
 # Local reference images
 *.png

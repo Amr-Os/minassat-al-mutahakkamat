@@ -14,9 +14,19 @@
 **الأسهل (.deb لأوبونتو/دبيان):**
 
 ```bash
-sudo dpkg -i minassat-al-mutahakkamat_0.5.0_amd64.deb
+sudo dpkg -i minassat-al-mutahakkamat_0.6.1_amd64.deb
 sudo apt-get install -f   # لتكملة أي اعتماديات ناقصة
 ```
+
+**لينكس عام (AppImage — يعمل على Arch وفيدورا وغيرها):**
+
+```bash
+chmod +x minassat-al-mutahakkamat-0.6.1-linux-x86_64.AppImage
+./minassat-al-mutahakkamat-0.6.1-linux-x86_64.AppImage
+```
+
+الاعتماديات: `gtk3` و`libevdev` (أوبونتو: `sudo apt-get install -y libgtk-3-0 libevdev2` —
+Arch: `sudo pacman -S gtk3 libevdev` — فيدورا: `sudo dnf install gtk3 libevdev`).
 
 **أو الأرشيف (أي توزيعة):**
 

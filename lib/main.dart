@@ -16,6 +16,7 @@ Future<void> main() async {
     title: 'Virtual Gamepad',
   );
   windowManager.waitUntilReadyToShow(options, () async {
+    await windowManager.setTitle('منصة المتحكمات');
     await windowManager.show();
     await windowManager.focus();
   });

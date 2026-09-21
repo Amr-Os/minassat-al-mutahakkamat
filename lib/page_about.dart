@@ -6,7 +6,7 @@ import 'l10n.dart';
 import 'theme.dart';
 import 'widgets.dart';
 
-const String appVersion = '0.6.0';
+const String appVersion = '0.6.1';
 
 class AboutPage extends StatelessWidget {
   final AppLanguage language;
@@ -23,7 +23,7 @@ class AboutPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset('assets/logo.png', width: 48, height: 48),
+                Image.asset('assets/logo.png', width: 64, height: 64),
                 const SizedBox(width: 12),
                 Text(s.versionLabel(appVersion),
                     style: const TextStyle(color: Mono.text)),

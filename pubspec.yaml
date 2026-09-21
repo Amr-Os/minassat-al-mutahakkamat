@@ -1,7 +1,7 @@
 name: minassat_al_mutahakkamat
 description: حوّل هاتفك إلى متحكم للحاسوب (تطبيق مكتبي، لينكس أولًا).
 publish_to: none
-version: 0.6.0
+version: 0.6.1
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
