@@ -4,6 +4,8 @@
 هاتفك، والعب — ويمكن توصيل عدة هواتف في نفس الوقت، كل واحد يظهر كجهاز
 مستقل في نافذة واحدة.
 
+![الواجهة الرئيسية](screenshots/main.png)
+
 ## التنزيل والتثبيت
 
 من صفحة [الإصدارات](https://github.com/Amr-Os/minassat-al-mutahakkamat/releases/latest)

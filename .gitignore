@@ -43,3 +43,4 @@ lib/generated_plugin_registrant.dart
 # Local reference images
 *.png
 !assets/**/*.png
+!screenshots/**/*.png

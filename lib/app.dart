@@ -116,17 +116,11 @@ class _ManagerShellState extends State<ManagerShell> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Image.asset('assets/logo.png', width: 28, height: 28),
-              const SizedBox(width: 8),
-              const Text('منصة المتحكمات',
-                  style: TextStyle(
-                      color: Mono.bright,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w800)),
-            ],
-          ),
+          const Text('منصة المتحكمات',
+              style: TextStyle(
+                  color: Mono.bright,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800)),
           Text(s.brandSub,
               style: const TextStyle(color: Mono.muted, fontSize: 11)),
           const Divider(color: Mono.border, height: 24),
