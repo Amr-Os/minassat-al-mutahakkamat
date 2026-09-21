@@ -12,6 +12,12 @@ import 'protocol.dart';
 /// Something that turns gamepad readings into system input.
 abstract class Executor {
   void inject(GamepadReading reading);
+
+  /// Releases every input (all buttons up, sticks/triggers centered).
+  /// Called when a phone disconnects without a clean teardown packet so
+  /// inputs never get stuck down.
+  void releaseAll();
+
   void dispose();
 }
 
@@ -20,6 +26,9 @@ abstract class Executor {
 class NullExecutor implements Executor {
   @override
   void inject(GamepadReading reading) {}
+
+  @override
+  void releaseAll() {}
 
   @override
   void dispose() {}
@@ -119,6 +128,26 @@ class GamepadExecutor implements Executor {
     _button(GamepadButtons.rightThumbstick, down, up, Btn.thumbr);
 
     _dev.sync();
+  }
+
+  @override
+  void releaseAll() {
+    // Same as the client's teardown packet: everything up, axes centered.
+    const all = GamepadButtons.a |
+        GamepadButtons.b |
+        GamepadButtons.x |
+        GamepadButtons.y |
+        GamepadButtons.menu |
+        GamepadButtons.view |
+        GamepadButtons.dpadUp |
+        GamepadButtons.dpadDown |
+        GamepadButtons.dpadLeft |
+        GamepadButtons.dpadRight |
+        GamepadButtons.leftShoulder |
+        GamepadButtons.rightShoulder |
+        GamepadButtons.leftThumbstick |
+        GamepadButtons.rightThumbstick;
+    inject(const GamepadReading(buttonsUp: all));
   }
 
   @override
@@ -334,6 +363,22 @@ class KeyboardMouseExecutor implements Executor {
     _stick(DefaultKeymap.rightStick, r.rightX, r.rightY);
     _trigger(DefaultKeymap.leftTrigger, r.leftTrigger);
     _trigger(DefaultKeymap.rightTrigger, r.rightTrigger);
+  }
+
+  @override
+  void releaseAll() {
+    // Key-up for everything the default map can emit. Sending "up" for
+    // an already-released key is a harmless no-op in uinput.
+    for (final b in DefaultKeymap.buttons.values) {
+      _up(b);
+    }
+    for (final stick in [DefaultKeymap.leftStick, DefaultKeymap.rightStick]) {
+      for (final b in [stick.up, stick.down, stick.left, stick.right]) {
+        _up(b);
+      }
+    }
+    _up(DefaultKeymap.leftTrigger.button);
+    _up(DefaultKeymap.rightTrigger.button);
   }
 
   @override

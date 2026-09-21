@@ -20,6 +20,9 @@ class CountingExecutor implements Executor {
   }
 
   @override
+  void releaseAll() => inner.releaseAll();
+
+  @override
   void dispose() => inner.dispose();
 }
 

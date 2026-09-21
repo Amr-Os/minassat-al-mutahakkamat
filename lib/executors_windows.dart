@@ -242,6 +242,20 @@ class WindowsKeyboardMouseExecutor implements Executor {
   }
 
   @override
+  void releaseAll() {
+    for (final vk in WinDefaultKeymap.buttons.values) {
+      _button(vk, false);
+    }
+    for (final stick in [WinDefaultKeymap.leftStick, WinDefaultKeymap.rightStick]) {
+      for (final vk in stick) {
+        _key(vk, false);
+      }
+    }
+    _button(WinDefaultKeymap.leftTrigger, false);
+    _button(WinDefaultKeymap.rightTrigger, false);
+  }
+
+  @override
   void dispose() {
     // SendInput is stateless; nothing to tear down.
   }

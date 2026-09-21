@@ -6,6 +6,12 @@
 
 ![الواجهة الرئيسية](screenshots/main.png)
 
+## تطبيق الهاتف
+
+التحكم يتم من تطبيق **لَعّيب** على الأندرويد
+([Amr-Os/VirtualGamePad-Mobile](https://github.com/Amr-Os/VirtualGamePad-Mobile)):
+ثبّته على هاتفك، وسيجد الخادم عبر رمز QR أو العنوان اليدوي.
+
 ## التنزيل والتثبيت
 
 من صفحة [الإصدارات](https://github.com/Amr-Os/minassat-al-mutahakkamat/releases/latest)

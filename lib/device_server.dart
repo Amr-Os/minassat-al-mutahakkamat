@@ -156,6 +156,12 @@ class DeviceSession extends ChangeNotifier {
     if (_closed) return;
     _closed = true;
     try {
+      // A dropped socket means "release everything" — without this, inputs
+      // held at disconnect time would stay stuck down (the client sends a
+      // teardown packet on clean exit, but crashes/network drops don't).
+      executor.releaseAll();
+    } catch (_) {}
+    try {
       await socket.close();
     } catch (_) {}
     executor.dispose();
