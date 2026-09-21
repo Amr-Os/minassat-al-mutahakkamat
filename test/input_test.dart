@@ -1,25 +1,17 @@
 // Creates REAL uinput devices. Needs /dev/uinput access (the developer is
 // in the input/uinput groups). Skips gracefully without it.
 
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:minassat_al_mutahakkamat/executors.dart';
 import 'package:minassat_al_mutahakkamat/protocol.dart';
 
-bool _uinputAvailable() {
-  try {
-    return File('/dev/uinput').existsSync();
-  } catch (_) {
-    return false;
-  }
-}
+import 'test_helpers.dart';
 
 void main() {
   group('uinput executors', () {
     test('gamepad device injects a reading', () {
-      if (!_uinputAvailable()) {
-        markTestSkipped('no /dev/uinput on this machine');
+      if (!uinputUsable()) {
+        markTestSkipped('uinput not usable on this machine');
         return;
       }
       final exec = GamepadExecutor('VGP Test Gamepad');
@@ -34,8 +26,8 @@ void main() {
     });
 
     test('keyboard/mouse devices inject a reading', () {
-      if (!_uinputAvailable()) {
-        markTestSkipped('no /dev/uinput on this machine');
+      if (!uinputUsable()) {
+        markTestSkipped('uinput not usable on this machine');
         return;
       }
       final exec = KeyboardMouseExecutor(mouseSensitivity: 1000);

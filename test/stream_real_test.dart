@@ -6,6 +6,8 @@ import 'package:minassat_al_mutahakkamat/executors.dart';
 import 'package:minassat_al_mutahakkamat/protocol.dart';
 import 'package:minassat_al_mutahakkamat/settings.dart';
 
+import 'test_helpers.dart';
+
 class CountingExecutor implements Executor {
   final Executor inner;
   int injects = 0;
@@ -23,8 +25,8 @@ class CountingExecutor implements Executor {
 
 void main() {
   test('real gamepad executor keeps up at 60Hz', () async {
-    if (!File('/dev/uinput').existsSync()) {
-      markTestSkipped('no /dev/uinput');
+    if (!uinputUsable()) {
+      markTestSkipped('uinput not usable on this machine');
       return;
     }
     CountingExecutor? counter;
