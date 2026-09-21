@@ -1,7 +1,8 @@
-// Colfer binary protocol for `VGP_Data_Exchange.GamepadReading`.
+// Colfer binary protocol for `GamepadReading`.
 //
 // Dart port of the generated C decoder in VGP_Data_Exchange/C/Colfer.c
-// (schema: VGP_Data_Exchange/GamePadReading.colf). The wire format is a
+// (upstream: https://github.com/kitswas/VGP_Data_Exchange — the schema is
+// inlined in docs/TECHNICAL.MD for reference). The wire format is a
 // sequence of (field index, value) pairs in ascending field order,
 // terminated by the header byte 127:
 //

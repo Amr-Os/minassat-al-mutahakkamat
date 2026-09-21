@@ -30,8 +30,8 @@ Mobile Client (TCP) -> DeviceServer (dart:io) -> Colfer decoder
 (Windows/macOS executors plug in behind `Executor` later.)
 
 - `lib/protocol.dart` - Colfer `GamepadReading` decoder/encoder
-  (port of `VGP_Data_Exchange/C/Colfer.c` semantics; read that file before
-  touching the decoder)
+  (port of the generated C decoder semantics; the schema is inlined in
+  `docs/TECHNICAL.MD` — read it before touching the decoder)
 - `lib/linux_input.dart` - FFI bindings + managed uinput device
 - `lib/executors.dart` - `GamepadExecutor`, `KeyboardMouseExecutor`
   (default keymap), `NullExecutor` (tests/fallback)
@@ -49,9 +49,8 @@ Mobile Client (TCP) -> DeviceServer (dart:io) -> Colfer decoder
 ## Instructions
 
 1. Build.md contains build instructions.
-2. Do not modify anything in VGP_Data_Exchange (protocol submodule).
-3. Every user-visible string must exist in Arabic AND English (`l10n.dart`).
-4. Never break the Colfer wire format — the mobile clients depend on it.
-5. Verify with `flutter analyze` and `flutter test` before finishing.
+2. Every user-visible string must exist in Arabic AND English (`l10n.dart`).
+3. Never break the Colfer wire format — the mobile clients depend on it.
+4. Verify with `flutter analyze` and `flutter test` before finishing.
    (`flutter test` runs real uinput tests when `/dev/uinput` is accessible.)
-6. Do not commit, push, or create PRs unless explicitly requested.
+5. Do not commit, push, or create PRs unless explicitly requested.

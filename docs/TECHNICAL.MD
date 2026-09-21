@@ -11,7 +11,7 @@
 
 | الملف | الدور |
 |---|---|
-| `lib/protocol.dart` | فك/ترميز `GamepadReading` (نقل حرفي لسلوك `VGP_Data_Exchange/C/Colfer.c` — اقرأه قبل لمس الفك) |
+| `lib/protocol.dart` | فك/ترميز `GamepadReading` (نقل حرفي لسلوك الفك المولّد C — اقرأ قسم البروتوكول أدناه قبل لمس الفك) |
 | `lib/buttons.dart` | أعلام الأزرار (مطابقة لواجهة Windows API كما في الأصل) |
 | `lib/keycodes.dart` | رموز أحداث لينكس (مطابقة لـ `input-event-codes.h`) |
 | `lib/linux_input.dart` | ربط FFI مع `libevdev.so.2` وlibc + جهاز uinput مُدار |
@@ -22,6 +22,32 @@
 | `lib/app.dart` و`lib/page_*.dart` | الواجهة (نافذة واحدة) |
 
 ## البروتوكول (Colfer)
+
+الأصل المعتمد: [VGP_Data_Exchange](https://github.com/kitswas/VGP_Data_Exchange)
+للمطور kitswas (مخطط `GamePadReading.colf` أدناه منقول منه حرفيًا للمرجع —
+لا حاجة لنسخ المستودع، فك الترميز مُنفَّذ بالكامل في `lib/protocol.dart`):
+
+```colfer
+package VGP_Data_Exchange
+
+// Inspired by the GamepadReading struct in the Windows API.
+// https://learn.microsoft.com/en-us/uwp/api/windows.gaming.input.gamepadreading
+type GamepadReading struct {
+	ButtonsUp uint32
+	ButtonsDown uint32
+	LeftTrigger float32
+	RightTrigger float32
+	LeftThumbstickX float32
+	LeftThumbstickY float32
+	RightThumbstickX float32
+	RightThumbstickY float32
+}
+```
+
+أعلام الأزرار مطابقة لـ `GameButtons.h` في نفس المشروع (وهي نفس قيم
+Windows API): Menu=0x1 وView=0x2 وA=0x4 وB=0x8 وX=0x10 وY=0x20 وDPadUp=0x40
+وDPadDown=0x80 وDPadLeft=0x100 وDPadRight=0x200 وLeftShoulder=0x400
+وRightShoulder=0x800 وLeftThumbstick=0x1000 وRightThumbstick=0x2000.
 
 حزمة `GamepadReading` = تتابع أزواج (رقم الحقل، القيمة) بترتيب تصاعدي،
 يليه بايت الإنهاء `127`:
@@ -73,4 +99,4 @@ flutter test   # يشمل اختبارات uinput حقيقية عند توفر /
 المشروع مشتق من [VirtualGamePad-PC](https://github.com/kitswas/VirtualGamePad-PC)
 للمطور kitswas (GPL-3.0) — البروتوكول والفكرة والتعيينات الافتراضية من
 عمله. هذه النسخة إعادة كتابة بلغة Flutter/Dart وتبقى تحت
-[GPL-3.0](../LICENCE.TXT). `VGP_Data_Exchange` submodule للقراءة فقط.
+[GPL-3.0](../LICENCE.TXT).

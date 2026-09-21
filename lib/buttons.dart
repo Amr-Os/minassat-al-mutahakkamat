@@ -1,5 +1,6 @@
 // Gamepad button flags. Same values as the GamepadButtons enum in the
-// Windows API and VGP_Data_Exchange/C/GameButtons.h
+// Windows API and the original VGP_Data_Exchange/C/GameButtons.h
+// (upstream: https://github.com/kitswas/VGP_Data_Exchange).
 class GamepadButtons {
   static const int menu = 0x1;
   static const int view = 0x2;

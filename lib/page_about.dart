@@ -6,7 +6,7 @@ import 'l10n.dart';
 import 'theme.dart';
 import 'widgets.dart';
 
-const String appVersion = '0.5.0';
+const String appVersion = '0.6.0';
 
 class AboutPage extends StatelessWidget {
   final AppLanguage language;
