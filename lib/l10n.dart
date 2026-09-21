@@ -44,6 +44,7 @@ abstract class Strings {
       String name, String address, int port, int requests, double intervalMs);
   String detailLimited(
       String name, String address, int port, String reason);
+  String get platformUnsupported;
   String get disconnectSelected;
   String get disconnectAll;
 
@@ -161,6 +162,9 @@ class ArabicStrings implements Strings {
   String detailLimited(
           String name, String address, int port, String reason) =>
       'الجهاز: $name\n\nالعنوان: $address : $port\n\nالحالة: متصل لكن بدون جهاز افتراضي — $reason';
+  @override
+  String get platformUnsupported =>
+      'الحقن غير مدعوم على نظام التشغيل هذا بعد — لينكس فقط حاليًا';
   @override
   String get disconnectSelected => 'قطع المحدد';
   @override
@@ -302,6 +306,9 @@ class EnglishStrings implements Strings {
   String detailLimited(
           String name, String address, int port, String reason) =>
       'Device: $name\n\nAddress: $address : $port\n\nStatus: connected, but no virtual device — $reason';
+  @override
+  String get platformUnsupported =>
+      'Input injection is not supported on this desktop OS yet — Linux only for now';
   @override
   String get disconnectSelected => 'Disconnect selected';
   @override

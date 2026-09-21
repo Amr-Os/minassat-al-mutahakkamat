@@ -2,12 +2,14 @@
 
 ## Project Overview
 
-**VirtualGamePad PC** is a Linux desktop server application (Flutter/Dart)
+**VirtualGamePad PC** is a desktop server application (Flutter/Dart)
 that enables mobile devices to function as virtual game controllers for PC.
 It receives gamepad input over TCP and translates it into system-level input
-events via uinput/libevdev. One app window manages every connected phone.
+events. One app window manages every connected phone. Linux input injection
+is implemented (uinput/libevdev); other desktop OSes are planned — keep the
+input layer behind `Executor` so new platforms plug in cleanly.
 
-- **Language**: Dart with Flutter (Linux desktop target only)
+- **Language**: Dart with Flutter (desktop; Linux first)
 - **Build/test**: `flutter pub get`, `flutter analyze`, `flutter test`,
   `flutter run -d linux`, `flutter build linux`
 - **Communication**: TCP server using the custom Colfer binary protocol
@@ -24,6 +26,7 @@ events via uinput/libevdev. One app window manages every connected phone.
 Mobile Client (TCP) -> DeviceServer (dart:io) -> Colfer decoder
   -> Executor (FFI uinput gamepad | keyboard+mouse) -> Linux kernel
 ```
+(Windows/macOS executors plug in behind `Executor` later.)
 
 - `lib/protocol.dart` - Colfer `GamepadReading` decoder/encoder
   (port of `VGP_Data_Exchange/C/Colfer.c` semantics; read that file before

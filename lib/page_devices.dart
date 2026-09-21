@@ -370,7 +370,9 @@ class _DevicesPageState extends State<DevicesPage> {
                         _name(selected),
                         selected.peerAddress,
                         selected.peerPort,
-                        selected.limitReason ?? '')
+                        selected.isPlatformUnsupported
+                            ? s.platformUnsupported
+                            : (selected.limitReason ?? ''))
                     : selected.requestCount == 0
                         ? s.detailWaiting(_name(selected),
                             selected.peerAddress, selected.peerPort)

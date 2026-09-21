@@ -23,6 +23,11 @@ Executor defaultExecutorFactory({
   required String deviceName,
   required int mouseSensitivity,
 }) {
+  // Input injection is implemented for Linux so far; other desktops are
+  // planned. Phones stay connected (parsing/stats) with a clear reason.
+  if (!Platform.isLinux) {
+    return _LimitedExecutor('', isPlatformUnsupported: true);
+  }
   try {
     switch (type) {
       case ExecutorType.gamepad:
@@ -40,7 +45,8 @@ Executor defaultExecutorFactory({
 /// Session kept alive without a virtual device; records why.
 class _LimitedExecutor extends NullExecutor {
   final String reason;
-  _LimitedExecutor(this.reason);
+  final bool isPlatformUnsupported;
+  _LimitedExecutor(this.reason, {this.isPlatformUnsupported = false});
 }
 
 class DeviceSession extends ChangeNotifier {
@@ -91,6 +97,9 @@ class DeviceSession extends ChangeNotifier {
   bool get isLimited => executor is _LimitedExecutor;
   String? get limitReason =>
       executor is _LimitedExecutor ? (executor as _LimitedExecutor).reason : null;
+  bool get isPlatformUnsupported =>
+      executor is _LimitedExecutor &&
+      (executor as _LimitedExecutor).isPlatformUnsupported;
 
   bool get isClosed => _closed;
 

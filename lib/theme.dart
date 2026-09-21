@@ -23,14 +23,17 @@ ThemeData monoTheme() {
   final base = ThemeData.dark(useMaterial3: true);
   return base.copyWith(
     scaffoldBackgroundColor: Mono.bg,
+    // Noto Naskh Arabic (bundled); the engine falls back to system fonts
+    // for any glyphs it does not cover.
+    textTheme: base.textTheme.apply(
+      bodyColor: Mono.text,
+      displayColor: Mono.bright,
+      fontFamily: 'Naskh',
+    ),
     colorScheme: const ColorScheme.dark(
       primary: Mono.bright,
       surface: Mono.cardBg,
       onSurface: Mono.text,
-    ),
-    textTheme: base.textTheme.apply(
-      bodyColor: Mono.text,
-      displayColor: Mono.bright,
     ),
   );
 }
