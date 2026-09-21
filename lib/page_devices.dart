@@ -79,11 +79,6 @@ class _DevicesPageState extends State<DevicesPage> {
                   child: Text(s.startFailed(server.lastError!),
                       style: const TextStyle(color: Mono.bright)),
                 ),
-              Text(
-                '${s.singleWindowHint}\n\n${s.introSecond}',
-                style: const TextStyle(color: Mono.muted, fontSize: 12),
-              ),
-              const SizedBox(height: 12),
               _connectCard(server),
               const SizedBox(height: 12),
               _devicesCard(server),

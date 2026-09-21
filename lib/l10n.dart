@@ -20,8 +20,6 @@ abstract class Strings {
   String get stopServer;
   String serverRunningSnack(int count);
   String get serverStoppedSnack;
-  String get singleWindowHint;
-  String get introSecond;
   String startFailed(String error);
 
   // Connect panel
@@ -114,11 +112,6 @@ class ArabicStrings implements Strings {
   @override
   String get serverStoppedSnack => 'الخادم متوقف';
   @override
-  String get singleWindowHint => 'مدير بنافذة واحدة — صِل أي عدد من الهواتف';
-  @override
-  String get introSecond =>
-      'كل هاتف يحصل على يد تحكم افتراضية خاصة به (Minassat Gamepad وMinassat Gamepad 2 وهكذا).';
-  @override
   String startFailed(String error) => 'تعذّر التشغيل: $error';
 
   @override
@@ -129,7 +122,7 @@ class ArabicStrings implements Strings {
   String get qrStartServerFirst => 'شغّل الخادم\nلعرض الرمز';
   @override
   String get qrHint =>
-      'امسح رمز QR أو أدخل عنوان IP والمنفذ في تطبيق الهاتف. كرر ذلك لكل هاتف — لا حاجة لنسخة ثانية من التطبيق.';
+      'امسح الرمز أو أدخل IP والمنفذ في تطبيق الهاتف — كرر لكل هاتف.';
 
   @override
   String get connectedDevices => 'الأجهزة المتصلة';
@@ -211,12 +204,11 @@ class ArabicStrings implements Strings {
   @override
   String versionLabel(String version) => 'الإصدار: $version';
   @override
-  String get aboutBody => 'جزء من مشروع يد التحكم الافتراضية\n'
-      '(https://kitswas.github.io/VirtualGamePad).\n\n'
-      'الكود المصدري: https://github.com/kitswas/VirtualGamePad-PC\n\n'
-      'البروتوكول: حزم GamepadReading بترميز Colfer الثنائي عبر TCP. '
-      'الحقن في لينكس عبر uinput/libevdev — لا حاجة لأي تعريفات.\n\n'
-      'كل الاتصالات محلية (Wi-Fi/LAN). لا إعلانات ولا تتبع.';
+  String get aboutBody => 'استخدم هاتفك كيد تحكم للحاسوب.\n\n'
+      'نافذة واحدة تدير كل الهواتف: توصيل سريع برمز QR، إعادة تسمية '
+      'الأجهزة، ويد افتراضية لكل هاتف أو محاكاة لوحة المفاتيح والفأرة.\n\n'
+      'مبنية على عمل kitswas في VirtualGamePad-PC (GPL-3.0).\n'
+      'التفاصيل التقنية في docs/TECHNICAL.MD.';
 }
 
 class EnglishStrings implements Strings {
@@ -250,12 +242,6 @@ class EnglishStrings implements Strings {
   @override
   String get serverStoppedSnack => 'Server stopped';
   @override
-  String get singleWindowHint =>
-      'Single-window manager — connect any number of phones';
-  @override
-  String get introSecond =>
-      'Each phone gets its own virtual gamepad device (Minassat Gamepad, Minassat Gamepad 2, …).';
-  @override
   String startFailed(String error) => 'Could not start: $error';
 
   @override
@@ -266,7 +252,7 @@ class EnglishStrings implements Strings {
   String get qrStartServerFirst => 'Start the server\nto show the code';
   @override
   String get qrHint =>
-      'Scan the QR code or type the IP and port into the mobile app. Repeat for every phone — no second app instance needed.';
+      'Scan the code or enter the IP and port in the phone app — repeat for every phone.';
 
   @override
   String get connectedDevices => 'Connected devices';
@@ -350,12 +336,11 @@ class EnglishStrings implements Strings {
   @override
   String versionLabel(String version) => 'Version: $version';
   @override
-  String get aboutBody => 'Part of the Virtual Gamepad project\n'
-      '(https://kitswas.github.io/VirtualGamePad).\n\n'
-      'Source code: https://github.com/kitswas/VirtualGamePad-PC\n\n'
-      'Protocol: Colfer-binary GamepadReading packets over TCP. '
-      'Linux input via uinput/libevdev — no drivers needed.\n\n'
-      'Local traffic only. No ads, tracking, or telemetry.';
+  String get aboutBody => 'Use your phone as a PC gamepad.\n\n'
+      'One window manages every phone: quick QR pairing, device renaming, '
+      'and a virtual gamepad per phone or keyboard/mouse simulation.\n\n'
+      'Based on the work of kitswas in VirtualGamePad-PC (GPL-3.0).\n'
+      'Technical details in docs/TECHNICAL.MD.';
 }
 
 Strings stringsFor(AppLanguage language) =>

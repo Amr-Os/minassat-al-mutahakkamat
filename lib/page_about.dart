@@ -21,8 +21,14 @@ class AboutPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(s.versionLabel(appVersion),
-                style: const TextStyle(color: Mono.text)),
+            Row(
+              children: [
+                Image.asset('assets/logo.png', width: 48, height: 48),
+                const SizedBox(width: 12),
+                Text(s.versionLabel(appVersion),
+                    style: const TextStyle(color: Mono.text)),
+              ],
+            ),
             const SizedBox(height: 8),
             SelectableText(
               s.aboutBody,
