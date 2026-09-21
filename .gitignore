@@ -39,3 +39,7 @@ lib/generated_plugin_registrant.dart
 
 # Release artifacts (published on GitHub releases, not in git)
 /dist/
+
+# Local reference images
+*.png
+!assets/**/*.png
